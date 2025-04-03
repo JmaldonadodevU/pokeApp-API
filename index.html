@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>PokeApp</title>
+</head>
+<body>
+    <main id="app">
+    </main>
+
+    <aside class="c-nav">
+        <button class="c-nav-item" onclick="mostrarlista()">Home</button>
+        <button class="c-nav-item" onclick="mostrarusuario()">Usuario</button>
+        <button class="c-nav-item" onclick="mostraraleatorios()">Aleatorios</button>
+        <button class="c-nav-item" onclick="mostrarfavoritos()">Favoritos</button>
+        <button class="c-nav-item" onclick="mostrarcapturados()">Capturados</button>
+    </aside>
+
+    <script src="js/api.js"></script>
+    <script src="js/lista.js"></script>
+    <script src="js/usuario.js"></script>
+    <script src="js/aleatorios.js"></script>
+    <script src="js/favoritos.js"></script>
+    <script src="js/capturados.js"></script>
+    <script src="js/detalle.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", General)
+    </script>
+
+</html>
