@@ -1,7 +1,6 @@
-function mostrarlista() {
+function mostrarlista(pokemones) {
     const app = document.getElementById("app");
-    app.innerHTML = "lista";
-    console.log(pokemones)
+    console.log(pokemones);
     let Pokes = "";
     for (let i = 0; i < pokemones.length; i++) {
         let id = pokemones[i].url.split("/")[6];
