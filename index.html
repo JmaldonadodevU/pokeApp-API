@@ -1,33 +1,101 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>PokeApp</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
+    <button id="btn-instalar" style="display:none;">Instalar App</button>
+
     <main id="app">
+        <!-- Contenido dinámico -->
     </main>
 
     <aside class="c-nav">
-        <button class="c-nav-item" onclick="mostrarlista()">Home</button>
-        <button class="c-nav-item" onclick="mostrarusuario()">Usuario</button>
-        <button class="c-nav-item" onclick="mostraraleatorios()">Aleatorios</button>
-        <button class="c-nav-item" onclick="mostrarfavoritos()">Favoritos</button>
-        <button class="c-nav-item" onclick="mostrarcapturados()">Capturados</button>
+        <button class="c-nav-item active" onclick="General()"><span>Inicio</span></button>
+        <button class="c-nav-item" onclick="mostrarMios()"><span>Mis Pokémon</span></button>
+        <button class="c-nav-item" onclick="mostrarAleatorio()"><span>Aleatorio</span></button>
+        <button class="c-nav-item" onclick="mostrarDatos()"><span>Usuario</span></button>
+        <button class="c-nav-item" onclick="mostrarFavoritos()"><span>Favoritos</span></button>
     </aside>
 
     <script src="js/api.js"></script>
     <script src="js/lista.js"></script>
-    <script src="js/usuario.js"></script>
-    <script src="js/aleatorios.js"></script>
+    <script src="js/aleatorio.js"></script>
+    <script src="js/mios.js"></script>
+    <script src="js/datos.js"></script>
     <script src="js/favoritos.js"></script>
-    <script src="js/capturados.js"></script>
     <script src="js/detalle.js"></script>
+    <script src="sw.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", General)
+        // Registro del Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registrado ✅'))
+                .catch(error => console.log('Error al registrar SW:', error));
+        }
+
+        // Control del botón de instalación
+        let deferredPrompt;
+
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault(); // Evita que aparezca automáticamente
+            deferredPrompt = e;
+
+            // Mostrar el botón personalizado
+            const btn = document.getElementById("btn-instalar");
+            if (btn) btn.style.display = "block";
+        });
+
+        document.getElementById("btn-instalar").addEventListener("click", async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt(); // Muestra el diálogo
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log("Resultado de instalación:", outcome);
+
+                // Ya no se necesita el prompt
+                deferredPrompt = null;
+                document.getElementById("btn-instalar").style.display = "none";
+            }
+        });
+
+        // Detección de iOS para instrucciones especiales
+        function esIOS() {
+            return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+        }
+
+        if (esIOS()) {
+            const mensaje = document.createElement("div");
+            mensaje.innerHTML = `
+                <p>En iOS, toca <span style="font-weight:bold;">Compartir</span> y luego "Agregar a pantalla de inicio" para instalar.</p>
+            `;
+            document.getElementById("btn-instalar").replaceWith(mensaje);
+        }
+
+        // Gestión de la navegación y la clase active en los botones
+        document.addEventListener("DOMContentLoaded", function() {
+            // Inicia con la página principal
+            General();
+
+            // Agrega manejo de clase active para los botones de navegación
+            const navItems = document.querySelectorAll('.c-nav-item');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Quita la clase active de todos los botones
+                    navItems.forEach(btn => btn.classList.remove('active'));
+                    // Agrega la clase active al botón clickeado
+                    this.classList.add('active');
+                });
+            });
+        });
     </script>
+</body>
 
 </html>
