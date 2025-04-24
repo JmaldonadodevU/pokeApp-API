@@ -7,6 +7,8 @@
     <title>PokeApp</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="manifest" href="manifest.json">
+    <!-- Agregando Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -17,11 +19,26 @@
     </main>
 
     <aside class="c-nav">
-        <button class="c-nav-item active" onclick="General()"><span>Inicio</span></button>
-        <button class="c-nav-item" onclick="mostrarMios()"><span>Mis Pokémon</span></button>
-        <button class="c-nav-item" onclick="mostrarAleatorio()"><span>Aleatorio</span></button>
-        <button class="c-nav-item" onclick="mostrarDatos()"><span>Usuario</span></button>
-        <button class="c-nav-item" onclick="mostrarFavoritos()"><span>Favoritos</span></button>
+        <button class="c-nav-item active" onclick="General()">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </button>
+        <button class="c-nav-item" onclick="mostrarMios()">
+            <i class="fas fa-bookmark"></i>
+            <span>Mis Pokémon</span>
+        </button>
+        <button class="c-nav-item" onclick="mostrarAleatorio()">
+            <i class="fas fa-random"></i>
+            <span>Aleatorio</span>
+        </button>
+        <button class="c-nav-item" onclick="mostrarDatos()">
+            <i class="fas fa-user"></i>
+            <span>Usuario</span>
+        </button>
+        <button class="c-nav-item" onclick="mostrarFavoritos()">
+            <i class="fas fa-heart"></i>
+            <span>Favoritos</span>
+        </button>
     </aside>
 
     <script src="js/api.js"></script>

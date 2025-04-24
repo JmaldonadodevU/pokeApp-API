@@ -38,7 +38,7 @@ async function mostrarAleatorio() {
                 
                 <div class="c-detalle">
                     <img src="${pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}" 
-                         alt="${pokemon.name}">
+                        alt="${pokemon.name}">
                     
                     <div>
                         <h2>#${pokemon.id} ${pokemon.name}</h2>
